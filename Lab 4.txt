@@ -1,0 +1,54 @@
+if __name__ == "__main__":
+    class Car:
+        def __init__(self, sit_place: float, air_temperature: int, number_of_chair: int):
+            self.sit_place = sit_place
+            self.air_temperature = air_temperature
+            self._number_of_chair = 3
+            self.set_number_of_chair(number_of_chair)
+
+        def set_number_of_chair(self, new_number_of_chair) -> None:
+
+            if not isinstance(new_number_of_chair, int):
+                raise TypeError
+            if new_number_of_chair <= 0:
+                raise ValueError
+            self._number_of_chair = new_number_of_chair
+
+        def set_air_temperature(self, new_air_temperature: int) -> None:
+
+            if not isinstance(new_air_temperature, int):
+                raise TypeError
+            if not 15 < new_air_temperature < 35:
+                raise ValueError
+            self.air_temperature = new_air_temperature
+
+        def get_area(self) -> float:
+
+            return self.sit_place
+
+        def __str__(self) -> str:
+            return f'temperature{self.air_temperature} °C'
+
+        def __repr__(self) -> str:
+            return f'sit_place {self.sit_place!r} м^2'
+
+    class Flat(Car):
+        def __init__(self, sit_place: float, air_temperature: int, number_of_chair: int, chair_number: int):
+            super().__init__(sit_place, air_temperature, number_of_chair)
+            self.chair_number = chair_number
+
+        def __repr__(self) -> str:
+            return f'sit_place{self.sit_place!r} м^2, floor {self.chair_number!r}'
+
+
+    class Car(Car):
+        def __init__(self, sit_place: float, air_temperature: int, number_of_chair: int, place_area: float):
+            super().__init__(sit_place, air_temperature, number_of_chair)
+            self.place_area = place_area
+
+        def __repr__(self) -> str:
+            return f'sit_place {self.sit_place!r} м^2, sit_place {self.place_area!r}'
+
+        def get_area(self) -> float:
+
+            return self.sit_place + self.place_area
